@@ -1,0 +1,1149 @@
+@import "./variables.scss";
+@import "./reset.scss";
+
+body {
+  height: 100%;
+  font-family: "Open Sans", sans-serif;
+  color: #080808;
+}
+
+body._lock {
+  overflow: hidden;
+}
+
+body._pc .menu__list > li:hover .menu__sub-list {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(0, 0);
+  pointer-events: all;
+}
+
+body._touch .menu__list > li {
+  display: flex;
+  align-items: center;
+}
+
+body._touch .menu__link {
+  flex: 1 1 auto;
+}
+
+body._touch .menu__arrow {
+  display: block;
+  width: 0;
+  height: 0;
+  margin: 0 0 0 5px;
+  transition: transform 0.3s ease 0s;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 10px solid #fff;
+}
+
+body._touch .menu__list > li._active .menu__sub-list {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(0, 0);
+  pointer-events: all;
+}
+
+body._touch .menu__list > li._active .menu__arrow {
+  transform: rotate(-180deg);
+}
+
+// --------------------------------------------------------
+
+.wrapper {
+  min-height: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+// --------------------------------------------------------
+
+.title {
+  font-family: "Merriweather";
+  font-size: 20px;
+  color: #080808;
+}
+
+.container {
+  max-width: $widthContainer;
+  padding: 0 15px;
+  box-sizing: content-box;
+  margin: 0 auto;
+}
+
+@media (max-width: 1200px) {
+  .container {
+    max-width: 950px;
+  }
+}
+
+@media (max-width: 1000px) {
+  .container {
+    max-width: 768px;
+  }
+}
+
+@media (max-width: 767px) {
+  .container {
+    max-width: 615px;
+  }
+}
+
+@media (max-width: 600px) {
+  .container {
+    max-width: 420px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    max-width: 288px;
+  }
+}
+
+// -----------HEADER---------------------------------------------
+
+.header {
+  position: fixed;
+  width: 100%;
+  left: 0;
+  top: 0;
+  z-index: 50;
+  background-color: #000;
+  &_container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 35px;
+  }
+
+  &__menu {
+  }
+
+  &__widgets {
+    display: flex;
+  }
+
+  @media (max-width: 767px) {
+    &__widgets {
+      z-index: 5;
+    }
+  }
+
+  &__search {
+    display: flex;
+    align-items: center;
+    border-left: 1px solid grey;
+    border-right: 1px solid grey;
+    height: 25px;
+    padding: 7px;
+    img {
+      width: 20px;
+      height: 20px;
+    }
+  }
+}
+
+.menu {
+  padding: 5px 0;
+
+  &__icon {
+    display: none;
+  }
+
+  @media (max-width: 767px) {
+    &__icon {
+      z-index: 5;
+      display: block;
+      position: relative;
+      width: 30px;
+      height: 18px;
+      cursor: pointer;
+    }
+
+    &__icon span,
+    &__icon::before,
+    &__icon::after {
+      left: 0;
+      position: absolute;
+      height: 10%;
+      width: 100%;
+      transition: all 0.3s ease 0s;
+      background-color: #fff;
+    }
+
+    &__icon::before,
+    &__icon::after {
+      content: "";
+    }
+
+    &__icon::before {
+      top: 0;
+    }
+
+    &__icon::after {
+      bottom: 0;
+    }
+
+    &__icon span {
+      top: 50%;
+      transform: scale(1) translate(0px, -50%);
+    }
+
+    &__icon._active span {
+      transform: scale(0) translate(0px, -50%);
+    }
+
+    &__icon._active::before {
+      top: 50%;
+      transform: rotate(-45deg) translate(0px, -50%);
+    }
+
+    &__icon._active::after {
+      bottom: 50%;
+      transform: rotate(45deg) translate(0px, 50%);
+    }
+  }
+
+  &__body {
+  }
+  @media (max-width: 767px) {
+    &__body {
+      position: fixed;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.9);
+      padding: 70px 30px 30px 30px;
+      transition: left 0.3s ease 0s;
+      overflow: auto;
+    }
+    &__body._active {
+      left: 0;
+    }
+    &__body::before {
+      content: "";
+      position: fixed;
+      width: 100%;
+      top: 0;
+      left: 0;
+      height: 35px;
+      background-color: #000;
+      z-index: 2;
+    }
+  }
+
+  &__list {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  &__list > li {
+    position: relative;
+  }
+  @media (max-width: 767px) {
+    &__list {
+      display: flex;
+      flex-direction: column;
+    }
+    &__list > li {
+      flex-wrap: wrap;
+      margin: 0 0 30px 0 !important;
+    }
+    &__list > li:last-child {
+      margin-bottom: 0 !important;
+    }
+    &__list > li._active .menu__sub-list {
+      display: block;
+    }
+  }
+
+  @media (max-width: 1000px) {
+    &__list li:not(:last-child) {
+      margin: 0 19px 0 0;
+    }
+  }
+
+  &__list li {
+    margin: 0 48px 0 0;
+  }
+  &__list li:last-child {
+    margin: 0;
+  }
+
+  &__link {
+    color: #fff;
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    line-height: 150%;
+  }
+  &__link:hover {
+    color: #cecece;
+  }
+  @media (max-width: 767px) {
+    &__link {
+      font-size: 20px;
+    }
+  }
+
+  &__arrow {
+    display: none;
+  }
+
+  &__sub-list {
+    position: absolute;
+    top: 100%;
+    background-color: #fff;
+    padding: 15px;
+    min-width: 200px;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+  }
+  @media (max-width: 767px) {
+    &__sub-list {
+      position: relative;
+      flex: 1 1 100%;
+      margin: 20px 0 0 0;
+      display: none;
+    }
+  }
+
+  @media (min-width: 767px) {
+    &__sub-list {
+      transform: translate(0px, 10%);
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: all 0.3s ease 0s;
+    }
+  }
+
+  &__sub-list li {
+    margin: 0 0 10px 0 !important;
+  }
+  &__sub-list li:last-child {
+    margin: 0 !important;
+  }
+
+  &__sub-link {
+    color: #000;
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 767px) {
+    &__sub-link {
+      font-size: 18px;
+      text-transform: uppercase;
+    }
+  }
+
+  &__sub-link:hover {
+    color: #cecece;
+  }
+}
+
+.widgets {
+  &__list {
+    display: flex;
+    align-items: center;
+    margin: 0 40px 0 0;
+  }
+
+  @media (max-width: 480px) {
+    &__list {
+      display: none;
+    }
+  }
+
+  @media (max-width: 1000px) {
+    &__list {
+      margin: 0 20px 0 0;
+    }
+  }
+
+  @media (max-width: 1000px) {
+    &__item:not(:last-child) {
+      margin: 0 14px 0 0 !important;
+    }
+  }
+
+  &__item {
+  }
+  &__item:not(:last-child) {
+    margin: 0 25px 0 0;
+  }
+
+  &__link {
+    img {
+      width: 14px;
+      height: 14px;
+    }
+  }
+}
+
+// -----------MAIN---------------------------------------------
+
+.page {
+  flex: 1 1 auto;
+  &__logo {
+    margin: 50px 0 8px 0;
+    height: 108px;
+  }
+  &__info {
+  }
+  &__posts {
+  }
+}
+.logo {
+  &__container {
+  }
+
+  &__img {
+    text-align: center;
+    img {
+      width: 288px;
+      height: 80px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    &__img {
+      img {
+        width: 100%;
+      }
+    }
+  }
+}
+
+.info {
+  &__container {
+  }
+
+  &__body {
+  }
+  @media (min-width: 670px) {
+    &__body {
+      display: flex;
+      flex-wrap: wrap;
+      margin: 0 -7px -12px;
+    }
+  }
+
+  &__body > div:nth-child(2) {
+    .info__item {
+      background: url(./images/info-2.jpg) no-repeat;
+      background-position: center center;
+      background-size: cover;
+    }
+    .item-info__body {
+      border: 1px solid #656565;
+      margin: 8px auto;
+      width: 96%;
+    }
+    .item-info__title {
+      font-family: "Merriweather";
+      font-size: 24px;
+      color: #fff;
+      padding: 25px 0;
+    }
+  }
+
+  &__column {
+    padding: 0 7px;
+    flex: 0 1 33.333%;
+    margin: 0 0 12px 0;
+  }
+
+  @media (max-width: 992px) {
+    &__column {
+      flex: 0 1 50%;
+    }
+    &__column:last-child {
+      flex: 1 1 100%;
+    }
+  }
+
+  @media (max-width: 600px) {
+    &__column {
+      padding: 0;
+    }
+  }
+
+  &__item {
+    height: 100%;
+    display: flex;
+    background-color: #f7f7f7;
+  }
+
+  @media (max-width: 767px) {
+    &__item {
+      flex-direction: column;
+    }
+  }
+
+  &__books {
+  }
+}
+
+.item-info {
+  &__icon {
+    img {
+      height: 117px;
+    }
+  }
+
+  @media (max-width: 767px) {
+    &__icon {
+      img {
+        height: 100%;
+        width: 100%;
+      }
+    }
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+  }
+
+  @media (max-width: 767px) {
+    &__body {
+      margin: 50px auto;
+    }
+  }
+
+  &__title {
+    text-align: center;
+    font-family: "satisfy";
+    font-size: 36px;
+    color: #080808;
+    line-height: 166%;
+  }
+
+  @media (max-width: 480px) {
+    &__title {
+      font-size: 36px;
+    }
+  }
+
+  &__link {
+    a {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      font-weight: 500;
+      color: #303030;
+    }
+    img {
+      width: 17px;
+      height: 17px;
+      margin: -1px 0 0 0;
+    }
+  }
+}
+
+.published-books {
+  background: url("./images/info-2.jpg") no-repeat;
+  padding: 0 30px;
+  flex: 0 1 33.333%;
+  &__body {
+  }
+
+  &__title {
+  }
+}
+
+.posts {
+  &__container {
+  }
+
+  &__body {
+    display: flex;
+    justify-content: space-between;
+    margin: 100px 0 0 0;
+  }
+
+  @media (max-width: 1000px) {
+    &__body {
+      flex-wrap: wrap;
+    }
+  }
+
+  &__column-first {
+    display: flex;
+    flex-wrap: wrap;
+    flex: 0 1 66.666%;
+    margin: 0 -10px;
+  }
+
+  @media (max-width: 1000px) {
+    &__column-first {
+      flex: 0 1 100%;
+      margin: 0 auto;
+    }
+  }
+
+  &__column-second {
+    flex: 0 1 33.333%;
+  }
+  @media (max-width: 1000px) {
+    &__column-second {
+      flex: 0 1 100%;
+    }
+  }
+}
+.column-first {
+  &__articles {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  &__blog {
+    width: 50%;
+    padding: 0 10px;
+    margin: 0 0 61px 0;
+  }
+
+  @media (max-width: 600px) {
+    &__blog {
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 600px) {
+    &__blog {
+      padding: 0;
+    }
+  }
+
+  &__img {
+    overflow: hidden;
+    img {
+      width: 100%;
+      transition: transform 0.25s;
+    }
+  }
+  &__img:hover img {
+    transform: scale(1.1);
+  }
+
+  &__body {
+  }
+
+  &__title {
+    font-size: 27px;
+    font-family: "Merriweather";
+    line-height: 37px;
+    margin: 15px 0 0 0;
+    a {
+      color: #080808;
+    }
+  }
+
+  &__text {
+    margin: 10px 0 26px;
+    color: #656565;
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  &__date {
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 13px;
+    color: #656565;
+  }
+
+  &__newsletter {
+  }
+
+  &__books {
+    width: 100%;
+    margin: 0 0 140px 0;
+  }
+
+  @media (max-width: 1000px) {
+    &__books {
+      margin: 0;
+    }
+  }
+}
+
+.newsletter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 118px;
+  background: url("./images/newsletter_img.jpg") no-repeat;
+  background-position: center center;
+  background-size: cover;
+  margin: 40px 0 100px 0;
+
+  @media (max-width: 767px) {
+    height: 200px;
+  }
+
+  &__body {
+    display: flex;
+    border: 1px solid #fff;
+    align-items: center;
+    justify-content: center;
+    width: 99%;
+    height: 93%;
+    padding: 25px;
+  }
+
+  @media (max-width: 767px) {
+    &__body {
+      width: 98%;
+      flex-wrap: wrap;
+    }
+  }
+
+  @media (max-width: 480px) {
+    &__body {
+      width: 97%;
+    }
+  }
+
+  &__text {
+    margin: 0 30px 0 0;
+    color: #fff;
+    font-family: "Satisfy";
+    font-size: 36px;
+  }
+
+  @media (max-width: 480px) {
+    &__text {
+      margin: 0;
+      font-size: 30px;
+    }
+  }
+
+  &__form {
+    display: flex;
+    width: 52%;
+    height: 52px;
+    border: 1px solid #fff;
+    input {
+      height: 100%;
+      width: 100%;
+      background: none;
+      color: #fff;
+      padding: 0 0 0 20px;
+    }
+    input::placeholder {
+      color: #fff;
+      font-size: 16px;
+    }
+    button {
+      width: 60px;
+      height: 50px;
+      background-color: #fff;
+      img {
+        height: 20px;
+        width: 20px;
+      }
+    }
+  }
+  @media (max-width: 767px) {
+    &__form {
+      width: 100%;
+    }
+  }
+}
+
+.books {
+  &__title {
+    color: #080808;
+    font-family: "Merriweather";
+    font-size: 40px;
+    margin: 0 0 40px 0;
+  }
+
+  &__body {
+    display: flex;
+    margin: 0 -12px;
+  }
+  @media (max-width: 1000px) {
+    &__body {
+      flex-wrap: wrap;
+    }
+  }
+  &__column {
+    width: 185px;
+    text-align: center;
+    padding: 0 12px;
+  }
+  @media (max-width: 1000px) {
+    &__column {
+      width: 264px;
+      margin: 0 0 60px 0;
+    }
+  }
+  @media (max-width: 767px) {
+    &__column {
+      width: 50%;
+    }
+  }
+
+  @media (max-width: 600px) {
+    &__column {
+      width: 100%;
+    }
+  }
+
+  &__img {
+    img {
+      width: 100%;
+    }
+  }
+
+  &__name {
+    margin: 15px 0;
+    font-family: "Merriweather";
+    font-size: 17px;
+    a {
+      color: #080808;
+    }
+  }
+
+  &__price {
+    color: #656565;
+    font-size: 16px;
+  }
+}
+
+.posts {
+  &__column-second {
+    padding: 0 0 0 50px;
+  }
+  @media (max-width: 1000px) {
+    &__column-second {
+      padding: 0;
+    }
+  }
+}
+.column-second {
+  &__search {
+    display: flex;
+    width: 100%;
+    border: 1px solid #000;
+    input {
+      width: 100%;
+      padding: 0 0 0 20px;
+      color: #656565;
+    }
+    input::placeholder {
+      color: #656565;
+      font-size: 16px;
+    }
+    button {
+      width: 55px;
+      height: 50px;
+      background-color: #000;
+      img {
+        height: 20px;
+        width: 20px;
+      }
+    }
+  }
+  &__author {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 487px;
+    background-color: #f7f7f7;
+    margin: 60px 0 0 0;
+  }
+  &__latestPosts {
+    margin: 50px 0 60px 0;
+  }
+  &__categories {
+    margin: 0 0 40px 0;
+  }
+  &__tags {
+  }
+}
+
+.author {
+  &__body {
+    text-align: center;
+    width: 63%;
+  }
+  @media (max-width: 1000px) {
+    &__body {
+      width: 79%;
+    }
+  }
+
+  &__img {
+    margin: 0 0 30px 0;
+  }
+
+  &__title {
+    margin: 0 0 20px 0;
+  }
+
+  &__text {
+    font-size: 16px;
+    line-height: 24px;
+    color: #656565;
+    margin: 0 0 35px 0;
+  }
+
+  &__list {
+    display: flex;
+    justify-content: center;
+  }
+
+  &__item:not(:last-child) {
+    margin: 0 20px 0 0;
+  }
+
+  &__link {
+    img {
+      width: 13px;
+      height: 13px;
+    }
+  }
+}
+
+.latestPosts {
+  &__title {
+    margin: 0 0 30px 0;
+  }
+
+  &__body {
+  }
+
+  &__block {
+    display: flex;
+    margin: 0 0 20px 0;
+  }
+
+  @media (max-width: 480px) {
+    &__block {
+      margin: 0 0 40px 0;
+    }
+  }
+  &__block:last-child {
+    margin: 0;
+  }
+
+  &__img {
+    width: 95px;
+    height: 95px;
+    margin: 0 20px 0 0;
+    img {
+      width: 95px;
+      height: 95px;
+    }
+  }
+
+  &__inf {
+  }
+
+  &__titleBlock {
+    font-family: "Merriweather";
+    font-size: 17px;
+    line-height: 26px;
+    margin: 0 0 10px 0;
+    a {
+      color: #000;
+    }
+  }
+
+  &__date {
+    text-transform: uppercase;
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    color: #656565;
+  }
+}
+
+.categories {
+  &__title {
+    margin: 0 0 25px 0;
+  }
+
+  &__list {
+  }
+
+  &__item:not(:last-child) {
+    margin: 0 0 13px 0;
+  }
+
+  &__link {
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #656565;
+    transition: all 0.3s ease 0s;
+  }
+  &__link:hover {
+    color: #080808;
+  }
+}
+
+.tags {
+  @media (max-width: 1000px) {
+    margin: 0 0 140px 0;
+  }
+  &__title {
+    margin: 0 0 20px 0;
+  }
+
+  &__list {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  &__item {
+    margin: 0 5px 13px 0;
+  }
+
+  &__link {
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #656565;
+    transition: all 0.3s ease 0s;
+  }
+  &__link:hover {
+    color: #080808;
+  }
+}
+
+// -----------FOOTER---------------------------------------------
+
+.footer {
+  width: 100%;
+  background-color: #000;
+  &__container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    min-height: 300px;
+  }
+
+  &__logo {
+    margin: 70px 0 45px 0;
+    text-align: center;
+  }
+
+  @media (max-width: 767px) {
+    &__logo {
+      width: 50%;
+      img {
+        width: 100%;
+      }
+    }
+  }
+
+  @media (max-width: 600px) {
+    &__logo {
+      width: 60%;
+      img {
+        width: 100%;
+      }
+    }
+  }
+
+  @media (max-width: 480px) {
+    &__logo {
+      width: 100%;
+      img {
+        width: 100%;
+      }
+    }
+  }
+
+  &__list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    margin: 0 0 40px 0;
+    width: 50%;
+  }
+
+  @media (max-width: 1200px) {
+    &__list {
+      width: 60%;
+    }
+  }
+
+  @media (max-width: 1000px) {
+    &__list {
+      width: 73%;
+    }
+  }
+
+  @media (max-width: 767px) {
+    &__list {
+      width: 100%;
+    }
+  }
+
+  &__item {
+    margin: 0 0 20px 0;
+  }
+
+  &__item:last-child {
+    margin: 0 0 auto;
+  }
+
+  // @media (max-width: 600px) {
+  //   &__item:nth-child(3) {
+  //     margin: 0 0 15px 0;
+  //   }
+  // }
+
+  &__link {
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #fff;
+  }
+
+  &__widgetsList {
+    display: flex;
+    margin: 0 0 60px 0;
+  }
+
+  &__widgetsItem {
+  }
+
+  &__widgetsItem:not(:last-child) {
+    margin: 0 25px 0 0;
+  }
+
+  &__widgetsLink {
+    img {
+      width: 14px;
+      height: 14px;
+    }
+  }
+
+  &__copyright {
+    margin: 0 0 17px 0;
+    a {
+      font-family: "Merriweather";
+      font-size: 13px;
+      color: #cecece;
+    }
+    a:hover {
+      color: #fff;
+    }
+  }
+}
